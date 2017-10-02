@@ -50,10 +50,19 @@ let CONTENIDO = [
 class Question extends React.Component {
   constructor(props) {
      super(props);
+     this.incremento = 0,
+     this.iniciaPreguntas = 0,
      this.state = {
-
+      rptCorrecta = [],
+      contador : 0,
+      iniciaPreguntas : 0,
+      pregunta : props.pregunta,
     };
   }
+
+onclick (event) {
+  let 
+}
 
   render () {
     return(
@@ -100,4 +109,4 @@ class Question extends React.Component {
   }
 }
 
-  ReactDOM.render(<Question/>, document.getElementById("airLine"));
+  ReactDOM.render(<Question/>, document.getElementById("quiz"));
