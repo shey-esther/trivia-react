@@ -1,4 +1,4 @@
-let CONTENIDO = [
+const CONTENIDO = [
   {
   titulo : '0 of 5 answered',
   icono : 'icon icon-list glyphicon glyphicon-info-sign',
@@ -44,69 +44,78 @@ let CONTENIDO = [
   rptCorrecta : '357.60 km',
   rptElegida : undefined
 },
-],
+];
 
 
 class Question extends React.Component {
   constructor(props) {
      super(props);
-     this.incremento = 0,
-     this.iniciaPreguntas = 0,
      this.state = {
-      rptCorrecta = [],
-      contador : 0,
+      incremento : 0,
       iniciaPreguntas : 0,
-      pregunta : props.pregunta,
+      rptCorrecta : [],
+      contador : 0,
+      ArrContenido : props.ArrContenido//contiene el array
     };
   }
-
-onclick (event) {
-  let 
-}
+  preguntas(){
+    // console.log(this.state.ArrContenido);
+    // return this.state.ArrContenido.map((value,index) => {
+      return (
+        <div>
+          <div className="col-md-12">
+                <h2 >{this.state.ArrContenido[this.state.iniciaPreguntas].pregunta}</h2>
+            </div>
+        </div>
+      )
+  
+  }
 
   render () {
-    return(
+    return (
       <div>
         <div id="airLine">
-        <div class="container">
-            <div id="iconorosa" class="row">
-            <span class='${app.item[app.iniciaPreguntas].icono}' aria-hidden="true"></span>
-                <div id="imags" class="col-md-12 ">
-               <img align="center" src='${app.item[app.iniciaPreguntas].imgsrc}' class="fade-out image1"/>
+        <div className="container">
+            <div id="iconorosa" className="row">
+            <span className='icon icon-list glyphicon glyphicon-info-sign' aria-hidden="true"></span>
+                <div id="imags" className="col-md-12 ">
+               <img align="center" src='assets/img/barco.svg' className="fade-out image1"/>
                 </div>
             </div>
         </div>
         <div id="plantilla">
-        <div class="answer">${app.item[app.iniciaPreguntas].titulo}</div>\
-        <div class="row texto">
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: ${app.incremento}%; height: 5px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>\
+        <div className="answer">0 of 5 answered</div>
+        <div className="row texto">
+            <div className="progress">
+                <div className="progress-bar bg-success" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>\
             </div>
-            <div class="col-md-12">
-                <h2>${app.item[app.iniciaPreguntas].pregunta}</h2>\
+            {this.preguntas()}
+            {/* <div className="col-lg-4">
+              <button className="btn btn-huge "><span className="letter">A</span>{this.state.pregunta[0].alternativas}</button>
             </div>
-            <div class="col-lg-4">
-              <button class="btn btn-huge "><span class="letter">A</span>${app.item[app.iniciaPreguntas].alternativas[0]}</button>\
+            <div className="col-lg-4">
+              <button className="btn btn-huge "><span className="letter">B</span>{this.state.pregunta[1].alternativas}</button>
             </div>
-            <div class="col-lg-4">
-              <button class="btn btn-huge "><span class="letter">B</span>${app.item[app.iniciaPreguntas].alternativas[1]}</button>\
-            </div>
-            <div class="col-lg-4">
-              <button class="btn btn-huge "><span class="letter">C</span>${app.item[app.iniciaPreguntas].alternativas[2]}</button>\
-            </div>
+            <div className="col-lg-4">
+              <button className="btn btn-huge "><span className="letter">C</span>{this.state.pregunta[2].alternativas}</button>
+            </div> */}
         </div>
-        <div class="row texto">
-            <div class="col-md-12">
-              <i class="fa fa-twitter-square fbook" style="font-size:48px;color:#00bbff"></i>\
-              <i class="fa fa-google-plus-circle" style="font-size:48px;color:red"></i>\
-              <i class="fa fa-facebook-square fbook" style="font-size:48px;color:blue;border-radius:50%"></i>\
+        {/* <div className="row texto">
+            <div className="col-md-12">
+              <i className="fa fa-twitter-square fbook" ></i>
+              <i className="fa fa-google-plus-circle" style="font-size:48px;color:red"></i>
+              <i className="fa fa-facebook-square fbook" style="font-size:48px;color:blue;border-radius:50%"></i>
             </div>
-        </div>
+        </div> */}
       </div>
       </div>
       </div>
     );
   }
 }
+// }
 
-  ReactDOM.render(<Question/>, document.getElementById("quiz"));
+  ReactDOM.render(
+    <Question ArrContenido={CONTENIDO}/>,
+     document.getElementById("quiz")
+  );
