@@ -51,12 +51,12 @@ class Question extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      incremento: 0,
       iniciaPreguntas: 0,
       rptElegida: [],
       contador: 0,
       ArrContenido: props.ArrContenido//contiene el array
     };
+    console.log(this.state.ArrContenido)
   }
 
   preguntas() {
@@ -95,7 +95,7 @@ class Question extends React.Component {
     return (
       <div>
         <div className="col-lg-4">
-          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter">A</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[0]}</button>
+          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter" >A</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[0]}</button>
         </div>
         <div className="col-lg-4">
           <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter">B</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[1]}</button>
@@ -110,9 +110,13 @@ class Question extends React.Component {
 
   capturar(e) {
     let item ={
-      rptaSelecionada : e.target.texContent
+      // rptaSelecionada : e.target.textContent,
+      pregunta : this.state.pregunta,
+      respuesta : e.target.textContent,
     };
     this.setState({
+      iniciaPreguntas : this.state.iniciaPreguntas +1,
+      pregunta : this.state.pregunta,
       rptElegida : this.state.rptElegida.concat([item]),
       contador : this.state.contador + 1
     });
