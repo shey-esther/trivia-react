@@ -53,7 +53,7 @@ class Question extends React.Component {
     this.state = {
       incremento: 0,
       iniciaPreguntas: 0,
-      rptCorrecta: [],
+      rptElegida: [],
       contador: 0,
       ArrContenido: props.ArrContenido//contiene el array
     };
@@ -91,19 +91,32 @@ class Question extends React.Component {
   alternativa() {
     // console.log(this.state.ArrContenido);
     // return this.state.ArrContenido.map((value,index) => {
+
     return (
       <div>
         <div className="col-lg-4">
-          <button className="btn btn-huge "><span className="letter">A</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[0]}</button>
+          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter">A</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[0]}</button>
         </div>
         <div className="col-lg-4">
-          <button className="btn btn-huge "><span className="letter">B</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[1]}</button>
+          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter">B</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[1]}</button>
         </div>
         <div className="col-lg-4">
-          <button className="btn btn-huge "><span className="letter">C</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[2]}</button>
+          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter">C</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[2]}</button>
         </div>
       </div>
     )
+    // })
+  }
+
+  capturar(e) {
+    let item ={
+      rptaSelecionada : e.target.texContent
+    };
+    this.setState({
+      rptElegida : this.state.rptElegida.concat([item]),
+      contador : this.state.contador + 1
+    });
+    console.log(item);
   }
 
   redesSociales() {
