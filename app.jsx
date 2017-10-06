@@ -2,7 +2,7 @@ const porcentaje = 20;
 
 class Model {
   constructor() {
-    this.images = ["plane.svg", "barco.svg", "bicycle.svg", "carro.svg", "auto.svg",];
+    this.images = ["plane.svg", "barco.svg", "bicicle.svg", "carro.svg", "auto.svg",];
     this.index = 0;
     this.questions = ["Which is the oldest airline in the world?", "Which is the largest port in the world?", "What is the longest distance cycling backwards?", "What is the highest speed ever reached by a school bus?", "What is the longest car trip on one tank of gas?"];
     this.correctAnswers = ["KLM", "Port of Shanghai", "337.60 km", "590 km/h", "2617 km"];
