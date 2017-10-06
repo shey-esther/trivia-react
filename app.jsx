@@ -1,160 +1,135 @@
-const CONTENIDO = [
-  {
-    titulo: '0 of 5 answered',
-    icono: 'icon icon-list glyphicon glyphicon-info-sign',
-    imgsrc: 'img/plane.svg',
-    pregunta: "¿What is the oldest airline in the word?",
-    alternativas: ['Avianca', 'KLM', 'Qantas'],//array de alternativas
-    rptCorrecta: 'KLM',
-    rptElegida: undefined
-  },
-  {
-    titulo: '0 of 5 answered',
-    icono: 'icon icon-list glyphicon glyphicon-info-sign',
-    imgsrc: 'img/barco.svg',
-    pregunta: "What is the largest port in the word?",
-    alternativas: ['Port of shangai', 'Port of singa pore', 'port of rotterdan'],//array de alternativas
-    rptCorrecta: 'Port of shangai',
-    rptElegida: undefined
-  },
-  {
-    titulo: '0 of 5 answered',
-    icono: 'icon icon-list glyphicon glyphicon-info-sign',
-    imgsrc: 'img/bicicle.svg',
-    pregunta: "What is the longest distance cycling back wards?",
-    alternativas: ['89.30 km', '675.10 km', '357.60 km'],//array de alternativas
-    rptCorrecta: '357.60 km',
-    rptElegida: undefined
-  },
-  {
-    titulo: '0 of 5 answered',
-    icono: 'icon icon-list glyphicon glyphicon-info-sign',
-    imgsrc: 'img/carro.svg',
-    pregunta: "What is the longest distance cycling back wards?",
-    alternativas: ['89.30 km', '675.10 km', '357.60 km'],//array de alternativas
-    rptCorrecta: '357.60 km',
-    rptElegida: undefined
-  },
-  {
-    titulo: '0 of 5 answered',
-    icono: 'icon icon-list glyphicon glyphicon-info-sign',
-    imgsrc: 'img/auto.svg',
-    pregunta: "What is the longest distance cycling back wards?",
-    alternativas: ['89.30 km', '675.10 km', '357.60 km'],//array de alternativas
-    rptCorrecta: '357.60 km',
-    rptElegida: undefined
-  },
-];
+const porcentaje = 20;
 
-
-class Question extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      iniciaPreguntas: 0,
-      rptElegida: [],
-      contador: 0,
-      ArrContenido: props.ArrContenido//contiene el array
-    };
-    console.log(this.state.ArrContenido)
+class Model {
+  constructor() {
+    this.images = ["plane.svg", "barco.svg", "bicycle.svg", "carro.svg", "auto.svg",];
+    this.index = 0;
+    this.questions = ["Which is the oldest airline in the world?", "Which is the largest port in the world?", "What is the longest distance cycling backwards?", "What is the highest speed ever reached by a school bus?", "What is the longest car trip on one tank of gas?"];
+    this.correctAnswers = ["KLM", "Port of Shanghai", "337.60 km", "590 km/h", "2617 km"];
+    this.answers = [];
+    this.options = [["Avianca", "KLM", "Qantas"],
+    ["Port of Shanghai", "Port of Singapore", "Port of Rotterdam"],
+    ["89.30 km", "675.10 km", "337.60 km"],
+    ["590 km/h", "320 km/h", "245 km/h"],
+    ["2617 km", "3568 km", "1732 km"]];
+    this.callback = null;
   }
 
-  preguntas() {
-    // console.log(this.state.ArrContenido);
-    // return this.state.ArrContenido.map((value,index) => {
-    return (
-      <div>
-        <div id="airLine">
-          <div className="container">
-            <div id="iconorosa" className="row">
-              <span className='icon icon-list glyphicon glyphicon-info-sign' aria-hidden="true"></span>
-              <div id="imags" className="col-md-12 ">
-                <center><img align="center" src='img/barco.svg' className="fade-out image1"/></center>
-              </div>
-            </div>
-          </div>
-          <div className="answer">0 of 5 answered</div>
-          <div className="row texto">
-            <div className="progress">
-              <div className="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>\
-            </div>
-            <div className="col-md-12">
-              <h2 >{this.state.ArrContenido[this.state.iniciaPreguntas].pregunta}</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-
+  subscribe(render) {
+    this.callback = render;
   }
 
-  alternativa() {
-    // console.log(this.state.ArrContenido);
-    // return this.state.ArrContenido.map((value,index) => {
-
-    return (
-      <div>
-        <div className="col-lg-4">
-          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter" >A</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[0]}</button>
-        </div>
-        <div className="col-lg-4">
-          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter">B</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[1]}</button>
-        </div>
-        <div className="col-lg-4">
-          <button onClick={(e) => this.capturar(e)} className="btn btn-huge "><span className="letter">C</span>{this.state.ArrContenido[this.state.iniciaPreguntas].alternativas[2]}</button>
-        </div>
-      </div>
-    )
-    // })
+  notify() {
+    this.callback();
+  }
+  getQuestion() {
+    return this.questions[this.index];
   }
 
-  capturar(e) {
-    let item ={
-      // rptaSelecionada : e.target.textContent,
-      pregunta : this.state.pregunta,
-      respuesta : e.target.textContent,
-    };
-    this.setState({
-      iniciaPreguntas : this.state.iniciaPreguntas +1,
-      pregunta : this.state.pregunta,
-      rptElegida : this.state.rptElegida.concat([item]),
-      contador : this.state.contador + 1
-    });
-    console.log(item);
+  getImage() {
+    return this.images[this.index];
   }
 
-  redesSociales() {
-    // console.log(this.state.ArrContenido);
-    // return this.state.ArrContenido.map((value,index) => {
-    return (
-      <div>
-        <center>
-          <div className="row texto">
-            <div className="col-md-12">
-              <i className="fa fa-twitter-square tuit" ></i>
-              <i className="fa fa-google-plus-circle google" ></i>
-              <i className="fa fa-facebook-square fbook"></i>
-            </div>
-          </div>
-        </center>
-      </div>
-    )
+  getOptions() {
+    return this.options[this.index];
   }
 
-  render() {
-    return (
-      <div>
-        <div id="plantilla">
-          {this.preguntas()}
-          {this.alternativa()}
-          {this.redesSociales()}
-        </div>
-      </div>
-    );
+  setAnswerAt(option, index) {
+    this.answers.push(option);
+    this.index++;
+    this.notify();
   }
 }
 
-ReactDOM.render(
-  <Question ArrContenido={CONTENIDO} />,
-  document.getElementById("quiz")
-);
+const Option = ({ index, option, model }) => {
+  const onOptionSelect = (e) => {
+    console.log('value: ', option);
+    model.setAnswerAt(option, index);
+  };
+
+  return (
+    <div>
+      <div className="options">
+        <button onClick={onOptionSelect} >
+          <span> {String.fromCharCode(65 + index)} </span>
+          {option} </button>
+      </div>
+    </div>);
+};
+
+const TriviaApp = ({ title, model }) => {
+  let optionList = '';
+  let yourAnswers = '';
+  const onSubmit = () => {
+    console.log('onSubmit');
+    // model.getReport () ;
+  }
+  const genReport = () => {
+    let result = [];
+    for (let i = 0; i < model.correctAnswers.length; i++) {
+      let rpta = '';
+      if (model.correctAnswers[i] === model.answers[i]) {
+        rpta = <div>{model.questions[i]} {model.answers[i]}</div>;
+      }
+      else {
+        rpta = <div>{model.questions[i]}  <strike>{model.answers[i]} </strike> - {model.correctAnswers[i]}</div>;
+      }
+      result.push(rpta);
+    }
+    return result;
+  }
+  if (model.getOptions()) {
+    optionList = model.getOptions().map((option, index) => {
+      return (<Option key={index} model={model} index={index} option={option} />);
+    })
+  } else {
+
+    yourAnswers = (
+      <div className= "finish">
+        <h2>  Here are your answers: </h2>
+        <ol>
+          {
+            genReport().map((question, index) => <li key={index}> {question}  {model.answers[index]} </li>)
+          }
+        </ol>
+        <button onClick={onSubmit}>submit</button>
+      </div>
+    );
+  }
+
+
+
+  return (
+    <div className= "count">
+      <img src={'img/' + model.getImage()} />
+      <div className="afterImg">
+        <p>  {model.getQuestion()}  </p>
+        <div>
+          {
+            optionList
+          }
+          {
+            yourAnswers
+          }
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+let model = new Model();
+let counter = 1;
+
+let render = () => {
+  console.log('render times: ', counter++);
+  ReactDOM.render(
+    <TriviaApp title="TodoApp" model={model} />,
+    document.getElementById('container')
+  );
+};
+
+model.subscribe(render);
+
+render(); 
